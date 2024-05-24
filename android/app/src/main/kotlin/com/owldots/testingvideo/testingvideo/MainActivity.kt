@@ -39,13 +39,16 @@ class ExoPlayerView(context: Context, viewId: Int, args: Any?) : PlatformView {
     }
 
     init {
-        val mediaItem = MediaItem.fromUri(Uri.parse("http://glplus.me:8000/live/23090795719/53564740196/85689407.ts"))
-        val dataSourceFactory = DefaultDataSource.Factory(context,)
-        val videoSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
+        val url = (args as? Map<String, Any>)?.get("url") as? String
+        if (url != null) {
+            val mediaItem = MediaItem.fromUri(Uri.parse(url))
+            val dataSourceFactory = DefaultDataSource.Factory(context)
+            val videoSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
 
-        exoPlayer.setMediaSource(videoSource)
-        exoPlayer.prepare()
-        exoPlayer.playWhenReady = true
+            exoPlayer.setMediaSource(videoSource)
+            exoPlayer.prepare()
+            exoPlayer.playWhenReady = true
+        }
     }
 
     override fun getView(): View {

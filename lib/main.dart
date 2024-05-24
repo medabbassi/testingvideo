@@ -13,14 +13,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('ExoPlayer in Flutter'),
+          title: const Text('ExoPlayer in Flutter'),
         ),
-        body: const Center(
+        body:  const Center(
           child: SizedBox(
             width: 300,
             height: 200,
             child: AndroidView(
               viewType: '<platform-view-type>',
+              creationParams: <String, dynamic>{
+                'url': 'http://glplus.me:8000/live/23090795719/53564740196/85689407.ts',},
+                creationParamsCodec: StandardMessageCodec(),
             ),
           ),
         ),
